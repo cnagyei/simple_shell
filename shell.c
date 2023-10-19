@@ -5,14 +5,14 @@
  *
  * @ac: argument count
  * @av: NULL terminated array of strings
+ * @env: NULL terminated arrary of system environment variables
  *
  * Return: Always 0
  */
 int main(int ac, char **av, char **env)
 {
 	char *command = NULL;
-	size_t n = 0;
-	size_t len;
+	size_t n = 0, len;
 	pid_t child_pid;
 	int status;
 
@@ -20,15 +20,15 @@ int main(int ac, char **av, char **env)
 	(void)(av);
 	while (1)
 	{
-		printf("$ ");
+		_putchar('$');
+		_putchar(' ');
 		fflush(stdout);
 
 		if (getline(&command, &n, stdin) == -1)
 		{
-			printf("Exiting shell");
+			_printf("Exiting shell");
 			break;
 		}
-		/* Remove newline character */
 		len = strlen(command);
 		if (len > 0 && command[len - 1] == '\n')
 		{
@@ -39,7 +39,7 @@ int main(int ac, char **av, char **env)
 		if (_strcmp(command, "env") == 0)
 		{
 			for ( ; *env != NULL; env++)
-				printf("%s\n", *env);
+				_printf("%s\n", *env);
 		}
 		child_pid = fork();
 		if (child_pid == -1)
