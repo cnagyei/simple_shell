@@ -8,9 +8,9 @@
  *
  * Return: Always 0
  */
-int main(int ac, char **av)
+int main(int ac, char **av, char **env)
 {
-	char *command = NULL, **env = environ;
+	char *command = NULL;
 	size_t n = 0;
 	size_t len;
 	pid_t child_pid;
@@ -38,7 +38,7 @@ int main(int ac, char **av)
 			break;
 		if (_strcmp(command, "env") == 0)
 		{
-			for ( ; *env != NULL, env++)
+			for ( ; *env != NULL; env++)
 				printf("%s\n", *env);
 		}
 		child_pid = fork();
