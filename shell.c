@@ -10,7 +10,7 @@
  */
 int main(int ac, char **av)
 {
-	char *command = NULL;
+	char *command = NULL, **env = environ;
 	size_t n = 0;
 	size_t len;
 	pid_t child_pid;
@@ -36,7 +36,11 @@ int main(int ac, char **av)
 		}
 		if (_strcmp(command, "exit") == 0)
 			break;
-
+		if (_strcmp(command, "env") == 0)
+		{
+			for ( ; *env != NULL, env++)
+				printf("%s\n", *env);
+		}
 		child_pid = fork();
 		if (child_pid == -1)
 		{
