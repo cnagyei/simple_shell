@@ -14,6 +14,8 @@ int main(int ac, char **av)
 	size_t n = 0;
 	size_t len;
 
+	(void)(ac);
+	(void)(av);
 	while (1)
 	{
 		printf("$ ");
@@ -39,9 +41,7 @@ int main(int ac, char **av)
 				exit(1);
 			}
 			else
-			{
 				wait(NULL);
-			}
 		}
 		else
 		{
