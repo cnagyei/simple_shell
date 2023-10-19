@@ -23,12 +23,8 @@ int main(int ac, char **av, char **env)
 		_putchar('$');
 		_putchar(' ');
 		fflush(stdout);
-
 		if (getline(&command, &n, stdin) == -1)
-		{
-			_printf("Exiting shell");
 			break;
-		}
 		len = strlen(command);
 		if (len > 0 && command[len - 1] == '\n')
 		{
@@ -43,17 +39,11 @@ int main(int ac, char **av, char **env)
 		}
 		child_pid = fork();
 		if (child_pid == -1)
-		{
-			perror("Fork failed");
 			exit(1);
-		}
 		else if (child_pid == 0)
 		{
 			if (execlp(command, command, NULL) == -1)
-			{
-				perror("Error");
 				exit(1);
-			}
 		}
 		else
 			wait(&status);

@@ -18,5 +18,6 @@ int print_null();
 int print_number(int n);
 int count_digit(int i);
 int print_char();
+void non_interact();
 
 #endif /* MAIN_H */
