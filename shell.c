@@ -13,6 +13,8 @@ int main(int ac, char **av)
 	char *command = NULL;
 	size_t n = 0;
 	size_t len;
+	pid_t child_pid;
+	int status;
 
 	(void)(ac);
 	(void)(av);
@@ -32,21 +34,25 @@ int main(int ac, char **av)
 		{
 			command[len - 1] = '\0';
 		}
-		if (access(command, X_OK) == 0)
+		if (_strcmp(command, "exit") == 0)
+			break;
+
+		child_pid = fork();
+		if (child_pid == -1)
 		{
-			if (fork() == 0)
+			perror("Fork failed");
+			exit(1);
+		}
+		else if (child_pid == 0)
+		{
+			if (execlp(command, command, NULL) == -1)
 			{
-				execlp(command, command, NULL);
 				perror("Error");
 				exit(1);
 			}
-			else
-				wait(NULL);
 		}
 		else
-		{
-			printf("Command not found: %s\n", command);
-		}
+			wait(&status);
 	}
 	return (0);
 }
